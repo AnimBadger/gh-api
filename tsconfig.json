@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@gh-api/core": ["./packages/core/src/index.ts"],
+      "@gh-api/core/*": ["./packages/core/src/*"],
+      "@gh-api/sms": ["./packages/sms/src/index.ts"],
+      "@gh-api/sms/*": ["./packages/sms/src/*"],
+      "@gh-api/arkesel": ["./packages/arkesel/src/index.ts"],
+      "@gh-api/arkesel/*": ["./packages/arkesel/src/*"]
+    }
+  },
+  "include": [
+    "packages/*/src",
+    "packages/*/test",
+    "packages/*/tsup.config.ts"
+  ]
+}
