@@ -4,6 +4,7 @@ method: POST
 headers:
   Content-Type: application/json
   Accept: application/json
+  api-key: "{{apiKey}}"
 body:
   type: json
   content: |-
