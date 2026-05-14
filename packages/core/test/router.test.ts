@@ -1,9 +1,19 @@
 import { test, expect } from "@playwright/test";
 import { SmsRouter } from "../src/router.js";
 import { createLogger } from "../src/logger.js";
-import type { SmsProvider, SendOtpResult, VerifyOtpResult, SendOtpParams, VerifyOtpParams } from "../src/types.js";
+import type {
+  SmsProvider,
+  SendOtpResult,
+  VerifyOtpResult,
+  SendOtpParams,
+  VerifyOtpParams,
+} from "../src/types.js";
 
-function makeProvider(name: string, succeeds: boolean, throws = false): SmsProvider {
+function makeProvider(
+  name: string,
+  succeeds: boolean,
+  throws = false,
+): SmsProvider {
   return {
     name,
     sendOtp: (_params: SendOtpParams): Promise<SendOtpResult> =>
@@ -27,7 +37,9 @@ function makeProvider(name: string, succeeds: boolean, throws = false): SmsProvi
 
 test.describe("SmsRouter", () => {
   test("throws when no providers given", () => {
-    expect(() => new SmsRouter({ providers: [] })).toThrow("At least one SMS provider is required");
+    expect(() => new SmsRouter({ providers: [] })).toThrow(
+      "At least one SMS provider is required",
+    );
   });
 
   test("routes sendOtp to the first successful provider", async () => {
@@ -67,7 +79,10 @@ test.describe("SmsRouter", () => {
       logger: createLogger("silent"),
     });
 
-    const result = await router.verifyOtp({ code: "123456", number: "+233000000000" });
+    const result = await router.verifyOtp({
+      code: "123456",
+      number: "+233000000000",
+    });
 
     expect(result.success).toBe(true);
     expect(result.provider).toBe("winner");
@@ -79,18 +94,27 @@ test.describe("SmsRouter", () => {
       logger: createLogger("silent"),
     });
 
-    const result = await router.verifyOtp({ code: "123456", number: "+233000000000" });
+    const result = await router.verifyOtp({
+      code: "123456",
+      number: "+233000000000",
+    });
 
     expect(result.success).toBe(false);
   });
 
   test("handles provider throwing in verifyOtp", async () => {
     const router = new SmsRouter({
-      providers: [makeProvider("failer1", false, true), makeProvider("backup", true)],
+      providers: [
+        makeProvider("failer1", false, true),
+        makeProvider("backup", true),
+      ],
       logger: createLogger("silent"),
     });
 
-    const result = await router.verifyOtp({ code: "123456", number: "+233000000000" });
+    const result = await router.verifyOtp({
+      code: "123456",
+      number: "+233000000000",
+    });
 
     expect(result.success).toBe(true);
     expect(result.provider).toBe("backup");

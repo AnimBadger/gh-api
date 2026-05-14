@@ -1,6 +1,11 @@
 import { GhApiClient, createLogger } from "@gh-api/core";
 import type { Logger } from "@gh-api/core";
-import type { ListSmsParams, SendSmsParams, SendSmsResponse, SmsMessage } from "./types.js";
+import type {
+  ListSmsParams,
+  SendSmsParams,
+  SendSmsResponse,
+  SmsMessage,
+} from "./types.js";
 
 /** Generic SMS client for sending, listing, and retrieving SMS messages. */
 export class Sms {
@@ -23,7 +28,10 @@ export class Sms {
         params,
       );
 
-      this.logger.info({ id: data.id, status: data.status }, "sms.send succeeded");
+      this.logger.info(
+        { id: data.id, status: data.status },
+        "sms.send succeeded",
+      );
       return data;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
@@ -66,7 +74,10 @@ export class Sms {
         `/sms/${id}`,
       );
 
-      this.logger.info({ id: data.id, status: data.status }, "sms.get succeeded");
+      this.logger.info(
+        { id: data.id, status: data.status },
+        "sms.get succeeded",
+      );
       return data;
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);

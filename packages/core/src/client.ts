@@ -34,10 +34,15 @@ export class GhApiClient {
   ): Promise<ApiResponse<T>> {
     const url = `${this.baseUrl}${path}`;
 
-    this.logger.info({ method, path, baseUrl: this.baseUrl }, "request started");
+    this.logger.info(
+      { method, path, baseUrl: this.baseUrl },
+      "request started",
+    );
 
     const controller = new AbortController();
-    const timer = setTimeout(() => { controller.abort(); }, this.timeout);
+    const timer = setTimeout(() => {
+      controller.abort();
+    }, this.timeout);
 
     try {
       const response = await fetch(url, {
@@ -52,7 +57,10 @@ export class GhApiClient {
       }
 
       const data = (await response.json()) as T;
-      this.logger.info({ status: response.status, method, path }, "request completed");
+      this.logger.info(
+        { status: response.status, method, path },
+        "request completed",
+      );
 
       return { data, status: response.status };
     } catch (error) {
@@ -80,7 +88,10 @@ export class GhApiClient {
       code: (body as { code?: string }).code,
     };
 
-    this.logger.error({ status: response.status, apiError }, "request returned error");
+    this.logger.error(
+      { status: response.status, apiError },
+      "request returned error",
+    );
 
     if (response.status === 401) {
       throw new AuthenticationError();

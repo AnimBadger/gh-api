@@ -15,7 +15,10 @@ function mockFetch(status: number, body: unknown): () => void {
   };
 }
 
-const client = new GhApiClient({ apiKey: "test-key", logger: createLogger("silent") });
+const client = new GhApiClient({
+  apiKey: "test-key",
+  logger: createLogger("silent"),
+});
 
 test.describe("Sms", () => {
   test("exposes send, list, get methods", () => {
@@ -27,10 +30,21 @@ test.describe("Sms", () => {
   });
 
   test("send posts to /sms with params and returns response", async () => {
-    const restore = mockFetch(200, { id: "msg_1", to: "+233500000000", from: "Test", body: "Hello", status: "sent", createdAt: "2026-01-01T00:00:00Z" });
+    const restore = mockFetch(200, {
+      id: "msg_1",
+      to: "+233500000000",
+      from: "Test",
+      body: "Hello",
+      status: "sent",
+      createdAt: "2026-01-01T00:00:00Z",
+    });
     const sms = new Sms(client);
 
-    const result = await sms.send({ to: "+233500000000", from: "Test", body: "Hello" });
+    const result = await sms.send({
+      to: "+233500000000",
+      from: "Test",
+      body: "Hello",
+    });
     restore();
 
     expect(result.id).toBe("msg_1");
@@ -39,7 +53,15 @@ test.describe("Sms", () => {
 
   test("list returns an array of messages", async () => {
     const restore = mockFetch(200, [
-      { id: "msg_1", to: "+233500000000", from: "Test", body: "Hello", status: "delivered", createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:05Z" },
+      {
+        id: "msg_1",
+        to: "+233500000000",
+        from: "Test",
+        body: "Hello",
+        status: "delivered",
+        createdAt: "2026-01-01T00:00:00Z",
+        updatedAt: "2026-01-01T00:00:05Z",
+      },
     ]);
     const sms = new Sms(client);
 
@@ -61,7 +83,15 @@ test.describe("Sms", () => {
   });
 
   test("get returns a single message by ID", async () => {
-    const restore = mockFetch(200, { id: "msg_1", to: "+233500000000", from: "Test", body: "Hello", status: "delivered", createdAt: "2026-01-01T00:00:00Z", updatedAt: "2026-01-01T00:00:05Z" });
+    const restore = mockFetch(200, {
+      id: "msg_1",
+      to: "+233500000000",
+      from: "Test",
+      body: "Hello",
+      status: "delivered",
+      createdAt: "2026-01-01T00:00:00Z",
+      updatedAt: "2026-01-01T00:00:05Z",
+    });
     const sms = new Sms(client);
 
     const result = await sms.get("msg_1");
@@ -75,7 +105,9 @@ test.describe("Sms", () => {
     const restore = mockFetch(500, { message: "Server error" });
     const sms = new Sms(client);
 
-    await expect(sms.send({ to: "+233500000000", from: "Test", body: "Hello" })).rejects.toThrow();
+    await expect(
+      sms.send({ to: "+233500000000", from: "Test", body: "Hello" }),
+    ).rejects.toThrow();
     restore();
   });
 });

@@ -1,7 +1,17 @@
 import { createLogger } from "@gh-api/core";
-import type { Logger, SendOtpParams, SendOtpResult, VerifyOtpParams, VerifyOtpResult } from "@gh-api/core";
+import type {
+  Logger,
+  SendOtpParams,
+  SendOtpResult,
+  VerifyOtpParams,
+  VerifyOtpResult,
+} from "@gh-api/core";
 import type { OtpConfig } from "./types.js";
-import { ARKESEL_BASE_URL, DEFAULT_TIMEOUT, DEFAULT_MESSAGE } from "./constants.js";
+import {
+  ARKESEL_BASE_URL,
+  DEFAULT_TIMEOUT,
+  DEFAULT_MESSAGE,
+} from "./constants.js";
 
 /** Arkesel SMS/OTP provider. Implements the `SmsProvider` interface. */
 export class Otp {
@@ -18,23 +28,28 @@ export class Otp {
   /** Send an OTP code via the Arkesel API. */
   public async sendOtp(params: SendOtpParams): Promise<SendOtpResult> {
     this.logger.info(
-      { number: maskNumber(params.number), senderId: params.senderId, medium: params.medium },
+      {
+        number: maskNumber(params.number),
+        senderId: params.senderId,
+        medium: params.medium,
+      },
       "arkesel sendOtp started",
     );
 
     try {
-      const data = await this.post<{ code: string; message: string; ussd_code?: string }>(
-        "/api/otp/generate",
-        {
-          number: params.number,
-          sender_id: params.senderId,
-          expiry: params.expiry,
-          length: params.length ?? 6,
-          medium: params.medium ?? "sms",
-          message: params.message ?? DEFAULT_MESSAGE,
-          type: params.type ?? "numeric",
-        },
-      );
+      const data = await this.post<{
+        code: string;
+        message: string;
+        ussd_code?: string;
+      }>("/api/otp/generate", {
+        number: params.number,
+        sender_id: params.senderId,
+        expiry: params.expiry,
+        length: params.length ?? 6,
+        medium: params.medium ?? "sms",
+        message: params.message ?? DEFAULT_MESSAGE,
+        type: params.type ?? "numeric",
+      });
 
       const success = data.code === "1000";
 
@@ -50,7 +65,12 @@ export class Otp {
         );
       }
 
-      return { success, provider: this.name, code: data.code, message: data.message };
+      return {
+        success,
+        provider: this.name,
+        code: data.code,
+        message: data.message,
+      };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.error({ error: message }, "arkesel sendOtp failed");
@@ -85,7 +105,12 @@ export class Otp {
         );
       }
 
-      return { success, provider: this.name, code: data.code, message: data.message };
+      return {
+        success,
+        provider: this.name,
+        code: data.code,
+        message: data.message,
+      };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       this.logger.error({ error: message }, "arkesel verifyOtp failed");
@@ -99,7 +124,9 @@ export class Otp {
     this.logger.info({ path }, "arkesel request started");
 
     const controller = new AbortController();
-    const timer = setTimeout(() => { controller.abort(); }, DEFAULT_TIMEOUT);
+    const timer = setTimeout(() => {
+      controller.abort();
+    }, DEFAULT_TIMEOUT);
 
     try {
       const response = await fetch(url, {
@@ -115,14 +142,23 @@ export class Otp {
       const data = (await response.json()) as T;
 
       if (!response.ok) {
-        this.logger.error({ status: response.status, data }, "arkesel request returned error");
+        this.logger.error(
+          { status: response.status, data },
+          "arkesel request returned error",
+        );
         throw new Error(`Arkesel API error: ${response.status}`);
       }
 
-      this.logger.info({ status: response.status, path }, "arkesel request completed");
+      this.logger.info(
+        { status: response.status, path },
+        "arkesel request completed",
+      );
       return data;
     } catch (error) {
-      if (error instanceof Error && error.message.startsWith("Arkesel API error")) {
+      if (
+        error instanceof Error &&
+        error.message.startsWith("Arkesel API error")
+      ) {
         throw error;
       }
       this.logger.error({ error }, "arkesel request failed");

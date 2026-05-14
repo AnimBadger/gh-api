@@ -1,5 +1,12 @@
 import { createLogger } from "./logger.js";
-import type { Logger, SendOtpParams, SendOtpResult, SmsProvider, VerifyOtpParams, VerifyOtpResult } from "./types.js";
+import type {
+  Logger,
+  SendOtpParams,
+  SendOtpResult,
+  SmsProvider,
+  VerifyOtpParams,
+  VerifyOtpResult,
+} from "./types.js";
 
 export interface RouterConfig {
   providers: SmsProvider[];
@@ -19,7 +26,10 @@ export class SmsRouter {
     this.logger = config.logger ?? createLogger();
 
     this.logger.info(
-      { providerCount: this.providers.length, providers: this.providers.map((p) => p.name) },
+      {
+        providerCount: this.providers.length,
+        providers: this.providers.map((p) => p.name),
+      },
       "SmsRouter initialized",
     );
   }
@@ -29,7 +39,11 @@ export class SmsRouter {
     const errors: string[] = [];
 
     this.logger.info(
-      { number: this.maskNumber(params.number), senderId: params.senderId, medium: params.medium },
+      {
+        number: this.maskNumber(params.number),
+        senderId: params.senderId,
+        medium: params.medium,
+      },
       "sendOtp started",
     );
 
@@ -43,10 +57,7 @@ export class SmsRouter {
         const result = await provider.sendOtp(params);
 
         if (result.success) {
-          this.logger.info(
-            { provider: provider.name },
-            "sendOtp succeeded",
-          );
+          this.logger.info({ provider: provider.name }, "sendOtp succeeded");
           return result;
         }
 
@@ -54,7 +65,9 @@ export class SmsRouter {
           { provider: provider.name, error: result.error, code: result.code },
           "sendOtp declined by provider",
         );
-        errors.push(`[${provider.name}] ${result.error ?? result.message ?? "declined"}`);
+        errors.push(
+          `[${provider.name}] ${result.error ?? result.message ?? "declined"}`,
+        );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         this.logger.error(
@@ -96,10 +109,7 @@ export class SmsRouter {
         const result = await provider.verifyOtp(params);
 
         if (result.success) {
-          this.logger.info(
-            { provider: provider.name },
-            "verifyOtp succeeded",
-          );
+          this.logger.info({ provider: provider.name }, "verifyOtp succeeded");
           return result;
         }
 
@@ -107,7 +117,9 @@ export class SmsRouter {
           { provider: provider.name, error: result.error, code: result.code },
           "verifyOtp declined by provider",
         );
-        errors.push(`[${provider.name}] ${result.error ?? result.message ?? "declined"}`);
+        errors.push(
+          `[${provider.name}] ${result.error ?? result.message ?? "declined"}`,
+        );
       } catch (error) {
         const message = error instanceof Error ? error.message : String(error);
         this.logger.error(

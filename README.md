@@ -4,11 +4,11 @@ TypeScript SDK for Ghana-based APIs — messaging, payments, identity, and more.
 
 ## Packages
 
-| Package | Description |
-|---------|-------------|
-| `@gh-api/core` | Shared HTTP client, router, types, logger |
-| `@gh-api/arkesel` | Arkesel SMS / OTP provider |
-| `@gh-api/sms` | Generic SMS client |
+| Package           | Description                               |
+| ----------------- | ----------------------------------------- |
+| `@gh-api/core`    | Shared HTTP client, router, types, logger |
+| `@gh-api/arkesel` | Arkesel SMS / OTP provider                |
+| `@gh-api/sms`     | Generic SMS client                        |
 
 ## Usage
 
