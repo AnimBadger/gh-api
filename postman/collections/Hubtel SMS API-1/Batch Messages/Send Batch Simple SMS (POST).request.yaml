@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{base_url}}/messages/batch/simple/send"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "From": "AbrantieLai",
+        "Recipients": [
+            "233546335113",
+            "233501431586"
+        ],
+        "Content": "Welcome to the first ever bulk SMS via API in Ghana"
+    }
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
+order: 1000

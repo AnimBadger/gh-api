@@ -1,0 +1,9 @@
+$kind: http-request
+url: "{{base_url}}/messages/batch/eadbfcd0-94d1-438f-ad32-0013f34042c2"
+method: GET
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
+order: 3000

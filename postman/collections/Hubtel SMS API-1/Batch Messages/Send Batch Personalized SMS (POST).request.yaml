@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{base_url}}/messages/batch/personalized/send"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "From": "AbrantieCo",
+        "personalizedRecipients": [
+            {
+                "To": "233501431586",
+                "Content": "Hi Pheezy, thank you for all you do for this business"
+            },
+            {
+                "To": "233501431586",
+                "Content": "Hi Joe, thank you for all you do for this business"
+            }
+        ]
+    }
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
+order: 2000

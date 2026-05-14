@@ -13,4 +13,9 @@ body:
         "RegisteredDelivery": true,
         "Time": "2026-05-20 09:00:00"
     }
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
 order: 3000

@@ -12,4 +12,9 @@ body:
         "Content": "Test message",
         "RegisteredDelivery": true
     }
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
 order: 2000

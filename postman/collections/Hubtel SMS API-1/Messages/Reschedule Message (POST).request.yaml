@@ -9,4 +9,9 @@ body:
     {
         "Time": "2026-05-25 14:30:00"
     }
+auth:
+  type: basic
+  credentials:
+    username: "{{clientid}}"
+    password: "{{clientsecret}}"
 order: 5000
