@@ -1,0 +1,191 @@
+openapi: "3.1.0"
+info:
+  title: gh-api
+  description: SDK for Ghana-based APIs — messaging, payments, identity, and more.
+  version: 0.1.0
+
+servers:
+  - url: https://sms.arkesel.com
+    description: Arkesel SMS/OTP API
+  - url: https://api.gh-api.com/v1
+    description: Generic gh-api gateway
+
+paths:
+  /api/otp/generate:
+    post:
+      summary: Send an OTP code
+      tags: [Arkesel OTP]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [number, sender_id, expiry]
+              properties:
+                number:
+                  type: string
+                  example: "233502027128"
+                sender_id:
+                  type: string
+                  example: "MyApp"
+                expiry:
+                  type: integer
+                  example: 5
+                length:
+                  type: integer
+                  default: 6
+                medium:
+                  type: string
+                  enum: [sms, voice]
+                  default: sms
+                message:
+                  type: string
+                type:
+                  type: string
+                  enum: [numeric, alphanumeric]
+                  default: numeric
+      responses:
+        "200":
+          description: OTP generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "1000"
+                  message:
+                    type: string
+                  ussd_code:
+                    type: string
+
+  /api/otp/verify:
+    post:
+      summary: Verify an OTP code
+      tags: [Arkesel OTP]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code, number]
+              properties:
+                code:
+                  type: string
+                  example: "123456"
+                number:
+                  type: string
+                  example: "233502027128"
+      responses:
+        "200":
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "1100"
+                  message:
+                    type: string
+
+  /sms:
+    post:
+      summary: Send an SMS message
+      tags: [SMS]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [to, from, body]
+              properties:
+                to:
+                  type: string
+                  example: "+233502027128"
+                from:
+                  type: string
+                  example: "MyApp"
+                body:
+                  type: string
+                  example: "Hello from gh-api"
+      responses:
+        "200":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SmsMessage"
+
+    get:
+      summary: List SMS messages
+      tags: [SMS]
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          schema:
+            type: integer
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [queued, sent, delivered, failed, undelivered]
+      responses:
+        "200":
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SmsMessage"
+
+  /sms/{id}:
+    get:
+      summary: Get an SMS message by ID
+      tags: [SMS]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Single message
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SmsMessage"
+
+components:
+  schemas:
+    SmsMessage:
+      type: object
+      properties:
+        id:
+          type: string
+        to:
+          type: string
+        from:
+          type: string
+        body:
+          type: string
+        status:
+          type: string
+          enum: [queued, sent, delivered, failed, undelivered]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
