@@ -1,0 +1,63 @@
+$kind: http-request
+url: "{{baseUrl}}/api/otp/generate"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "number": "233502027128",
+      "sender_id": "MyApp",
+      "expiry": 5,
+      "length": 6,
+      "medium": "sms",
+      "message": "string",
+      "type": "numeric"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "number": {
+          "type": "string",
+          "example": "233502027128"
+        },
+        "sender_id": {
+          "type": "string",
+          "example": "MyApp"
+        },
+        "expiry": {
+          "type": "integer",
+          "example": 5
+        },
+        "length": {
+          "type": "integer"
+        },
+        "medium": {
+          "type": "string",
+          "enum": [
+            "sms",
+            "voice"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "numeric",
+            "alphanumeric"
+          ]
+        }
+      },
+      "required": [
+        "number",
+        "sender_id",
+        "expiry"
+      ]
+    }
+examples: ./.resources/Send an OTP code.resources/examples
+order: 1000

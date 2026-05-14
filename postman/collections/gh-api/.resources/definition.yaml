@@ -1,0 +1,4 @@
+$kind: collection
+description: SDK for Ghana-based APIs — messaging, payments, identity, and more.
+variables:
+  baseUrl: https://sms.arkesel.com

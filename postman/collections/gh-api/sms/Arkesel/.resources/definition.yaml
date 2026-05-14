@@ -1,0 +1,20 @@
+$kind: collection
+description: |
+  ## Arkesel
+
+  Provider-specific SMS endpoints for **Arkesel**, a Ghanaian messaging gateway, grouped under the parent `sms` resource of the `gh-api` SDK.
+
+  This folder isolates Arkesel's implementation of SMS operations so that provider-specific behavior (request shapes, response formats, status semantics) can be tested and documented independently from the generic SMS interface.
+
+  ### Contents
+  - **Get an SMS message by ID** — `GET {{baseUrl}}/sms/:id` — Retrieves the delivery status and metadata of a previously sent SMS using its unique identifier.
+
+  ### Purpose
+  - Group all Arkesel-backed SMS requests in one place.
+  - Serve as the integration surface for the `@gh-api` SMS package when Arkesel is the configured provider.
+  - Make it easy to add additional Arkesel-specific endpoints (e.g., balance checks, bulk sends, schedules) without polluting the generic `sms` folder.
+
+  ### Conventions
+  - Uses the `{{baseUrl}}` variable from the active environment (e.g., `DEV`).
+  - Authentication and headers follow Arkesel's API requirements; configure credentials via environment or vault variables.
+order: 1000

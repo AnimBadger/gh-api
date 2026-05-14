@@ -1,0 +1,32 @@
+$kind: http-request
+url: "{{baseUrl}}/sms?limit=4143&offset=4143&status=failed"
+method: GET
+headers:
+  Accept: application/json
+queryParams:
+  - key: limit
+    value: "4143"
+    $type: integer
+  - key: offset
+    value: "4143"
+    $type: integer
+  - key: status
+    value: failed
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "sent",
+              "delivered",
+              "failed",
+              "undelivered"
+            ]
+          }
+        }
+      }
+examples: ./.resources/List SMS messages.resources/examples
+order: 3000

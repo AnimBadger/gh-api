@@ -1,0 +1,78 @@
+$kind: http-example
+request:
+  url: "{{baseUrl}}/sms?limit=4143&offset=4143&status=failed"
+  method: GET
+  headers:
+    Accept: application/json
+  queryParams:
+    limit: "4143"
+    offset: "4143"
+    status: failed
+response:
+  statusCode: 200
+  statusText: OK
+  headers:
+    Content-Type: application/json
+  body:
+    type: json
+    content: |-
+      [
+        {
+          "id": "string",
+          "to": "string",
+          "from": "string",
+          "body": "string",
+          "status": "queued",
+          "createdAt": "2003-04-16T14:39:50.864Z",
+          "updatedAt": "1983-04-20T10:46:48.750Z"
+        },
+        {
+          "id": "string",
+          "to": "string",
+          "from": "string",
+          "body": "string",
+          "status": "sent",
+          "createdAt": "1975-02-04T15:33:09.455Z",
+          "updatedAt": "1948-08-01T06:53:53.401Z"
+        }
+      ]
+    $type: |-
+      {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "to": {
+              "type": "string"
+            },
+            "from": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "queued",
+                "sent",
+                "delivered",
+                "failed",
+                "undelivered"
+              ]
+            },
+            "createdAt": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "updatedAt": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        }
+      }
+order: 1000

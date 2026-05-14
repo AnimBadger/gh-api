@@ -1,0 +1,14 @@
+$kind: collection
+description: |-
+  ## api
+
+  Top-level namespace for endpoints served under the `/api` path of the `gh-api` SDK. This folder groups identity- and verification-related operations that are exposed under the shared `/api/*` URL prefix, keeping them organized separately from provider-specific resources (such as `sms`).
+
+  ### Contents
+  - **otp** — One-time password (OTP) operations used for phone number and user verification flows.
+    - **generate** — `POST {{baseUrl}}/api/otp/generate` — Issues a new OTP code to a recipient.
+    - **verify** — `POST {{baseUrl}}/api/otp/verify` — Validates a submitted OTP code against the issued one.
+
+  ### Purpose
+  Use this folder as the entry point when working with authentication and verification primitives in the SDK. It centralizes endpoints whose contracts are owned by the `gh-api` service itself (rather than by a third-party messaging provider), making it easy to test, document, and evolve identity-related flows independently.
+order: 1000

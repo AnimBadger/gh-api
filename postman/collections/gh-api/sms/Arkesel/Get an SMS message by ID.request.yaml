@@ -1,0 +1,22 @@
+$kind: http-request
+url: "{{baseUrl}}/sms/:id"
+method: GET
+headers:
+  Accept: application/json
+pathVariables:
+  - key: id
+    value: string
+    $type: |-
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+examples: ./.resources/Get an SMS message by ID.resources/examples
+order: 1000

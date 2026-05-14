@@ -5,6 +5,8 @@ localResources:
     - ../docs/openapi.yaml
   collections:
     - ../postman/collections/Hubtel SMS API-1
+    - ../postman/collections/gh-api
 cloudResources:
   collections:
     ../postman/collections/Hubtel SMS API-1: 24297448-329834d5-73c1-4415-a6b9-088df07421cb
+    ../postman/collections/gh-api: 24297448-854ecdf8-a34c-4c0c-9953-e583efa2085a

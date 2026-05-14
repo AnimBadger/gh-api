@@ -1,0 +1,16 @@
+$kind: collection
+description: |-
+  ## generate
+
+  OTP issuance endpoints for the `gh-api` SDK, nested under `api/otp`. This folder groups operations that **create and dispatch** one-time password codes to end users — typically as the first step of a phone-number or user-verification flow, paired with the sibling `verify` folder which confirms the code.
+
+  Keeping `generate` isolated from `verify` makes it easy to document, test, and mock the issuance side of the OTP lifecycle independently (for example, asserting rate-limits, delivery channels, or recipient validation without involving code-checking logic).
+
+  ### Contents
+  - **Send an OTP code** — `POST {{baseUrl}}/api/otp/generate` — Generates a new one-time password and delivers it to the specified recipient (e.g., via SMS), returning a reference that can later be used with the `verify` endpoint.
+
+  ### Typical usage
+  1. Client calls `POST /api/otp/generate` with the recipient's identifier (such as a phone number).
+  2. The SDK issues a fresh code, dispatches it through the configured channel, and returns a request/session identifier.
+  3. The client then calls the matching endpoint in the `verify` folder to confirm the code submitted by the user.
+order: 1000

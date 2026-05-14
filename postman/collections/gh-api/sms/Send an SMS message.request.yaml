@@ -1,0 +1,39 @@
+$kind: http-request
+url: "{{baseUrl}}/sms"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "to": "+233502027128",
+      "from": "MyApp",
+      "body": "Hello from gh-api"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "to": {
+          "type": "string",
+          "example": "+233502027128"
+        },
+        "from": {
+          "type": "string",
+          "example": "MyApp"
+        },
+        "body": {
+          "type": "string",
+          "example": "Hello from gh-api"
+        }
+      },
+      "required": [
+        "to",
+        "from",
+        "body"
+      ]
+    }
+examples: ./.resources/Send an SMS message.resources/examples
+order: 2000

@@ -1,0 +1,33 @@
+$kind: http-request
+url: "{{baseUrl}}/api/otp/verify"
+method: POST
+headers:
+  Content-Type: application/json
+  Accept: application/json
+body:
+  type: json
+  content: |-
+    {
+      "code": "123456",
+      "number": "233502027128"
+    }
+  $type: |-
+    {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "123456"
+        },
+        "number": {
+          "type": "string",
+          "example": "233502027128"
+        }
+      },
+      "required": [
+        "code",
+        "number"
+      ]
+    }
+examples: ./.resources/Verify an OTP code.resources/examples
+order: 1000
