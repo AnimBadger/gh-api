@@ -10,5 +10,10 @@
       "@gh-api/arkesel/*": ["./packages/arkesel/src/*"]
     }
   },
-  "include": ["packages/*/src", "packages/*/test", "packages/*/tsup.config.ts", "playwright.config.ts"]
+  "include": [
+    "packages/*/src",
+    "packages/*/test",
+    "packages/*/tsup.config.ts",
+    "playwright.config.ts"
+  ]
 }
