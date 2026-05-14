@@ -19,8 +19,8 @@ import { Otp } from "@gh-api/arkesel";
 const otp = new Otp({ apiKey: process.env.ARKESEL_API_KEY! });
 
 const result = await otp.sendOtp({
-  number: "233541232346",
-  senderId: "MyApp",
+  number: "23354******6",
+  senderId: "SenderID",
   expiry: 5,
 });
 ```
