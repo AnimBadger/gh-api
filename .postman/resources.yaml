@@ -1,7 +1,10 @@
-# Use this workspace to collaborate
 workspace:
   id: 692c4a44-b4e1-4663-8e73-bc6dc04b4372
-
 localResources:
   specs:
     - ../docs/openapi.yaml
+  collections:
+    - ../postman/collections/Hubtel SMS API-1
+cloudResources:
+  collections:
+    ../postman/collections/Hubtel SMS API-1: 24297448-329834d5-73c1-4415-a6b9-088df07421cb

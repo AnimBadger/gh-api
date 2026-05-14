@@ -1,0 +1,12 @@
+$kind: http-request
+url: "{{base_url}}/messages/{{message_id}}"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "Time": "2026-05-25 14:30:00"
+    }
+order: 5000

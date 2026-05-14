@@ -1,0 +1,16 @@
+$kind: http-request
+url: "{{base_url}}/messages/send"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "From": "{{from}}",
+        "To": "{{to}}",
+        "Content": "Scheduled message",
+        "RegisteredDelivery": true,
+        "Time": "2026-05-20 09:00:00"
+    }
+order: 3000

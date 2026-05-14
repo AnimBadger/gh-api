@@ -1,0 +1,18 @@
+$kind: collection
+name: Hubtel SMS API
+description: |-
+  Hubtel SMS API
+
+  ## Auth
+  Dashboard-generated URLs use query params: `clientid` + `clientsecret`.
+  POST requests can also use Basic Auth (`clientid` as username, `clientsecret` as password).
+
+  ## Base
+  `https://sms.hubtel.com/v1`
+variables:
+  base_url: https://sms.hubtel.com/v1
+  clientid: ruqmirwt
+  clientsecret: mzatbikv
+  from: QAautomate
+  to: "+233541232346"
+  message_id: ""

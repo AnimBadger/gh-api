@@ -1,0 +1,10 @@
+$kind: http-request
+url: "{{base_url}}/messages/send?clientsecret={{clientsecret}}&clientid={{clientid}}&from={{from}}&to={{to}}&content=Test message"
+method: GET
+queryParams:
+  clientsecret: "{{clientsecret}}"
+  clientid: "{{clientid}}"
+  from: "{{from}}"
+  to: "{{to}}"
+  content: Test message
+order: 1000

@@ -7,7 +7,9 @@
       "@gh-api/sms": ["./packages/sms/src/index.ts"],
       "@gh-api/sms/*": ["./packages/sms/src/*"],
       "@gh-api/arkesel": ["./packages/arkesel/src/index.ts"],
-      "@gh-api/arkesel/*": ["./packages/arkesel/src/*"]
+      "@gh-api/arkesel/*": ["./packages/arkesel/src/*"],
+      "@gh-api/otp": ["./packages/otp/src/index.ts"],
+      "@gh-api/otp/*": ["./packages/otp/src/*"]
     }
   },
   "include": [

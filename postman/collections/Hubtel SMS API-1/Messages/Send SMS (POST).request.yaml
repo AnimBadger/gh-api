@@ -1,0 +1,15 @@
+$kind: http-request
+url: "{{base_url}}/messages/send"
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+        "From": "{{from}}",
+        "To": "{{to}}",
+        "Content": "Test message",
+        "RegisteredDelivery": true
+    }
+order: 2000

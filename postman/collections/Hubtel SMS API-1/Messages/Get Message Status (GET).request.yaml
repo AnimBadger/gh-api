@@ -1,0 +1,4 @@
+$kind: http-request
+url: "{{base_url}}/messages/{{message_id}}"
+method: GET
+order: 4000
