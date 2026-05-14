@@ -6,6 +6,7 @@ export interface RouterConfig {
   logger?: Logger;
 }
 
+/** Routes OTP operations across multiple SMS providers, falling through until one succeeds. */
 export class SmsRouter {
   private readonly providers: SmsProvider[];
   private readonly logger: Logger;
@@ -23,6 +24,7 @@ export class SmsRouter {
     );
   }
 
+  /** Send an OTP through the first provider that succeeds. */
   public async sendOtp(params: SendOtpParams): Promise<SendOtpResult> {
     const errors: string[] = [];
 
@@ -75,6 +77,7 @@ export class SmsRouter {
     };
   }
 
+  /** Verify an OTP code through the first provider that succeeds. */
   public async verifyOtp(params: VerifyOtpParams): Promise<VerifyOtpResult> {
     const errors: string[] = [];
 

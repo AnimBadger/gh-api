@@ -3,6 +3,7 @@ import type { Logger, SendOtpParams, SendOtpResult, VerifyOtpParams, VerifyOtpRe
 import type { OtpConfig } from "./types.js";
 import { ARKESEL_BASE_URL, DEFAULT_TIMEOUT, DEFAULT_MESSAGE } from "./constants.js";
 
+/** Arkesel SMS/OTP provider. Implements the `SmsProvider` interface. */
 export class Otp {
   public readonly name = "arkesel";
   private readonly apiKey: string;
@@ -14,6 +15,7 @@ export class Otp {
     this.logger.info({ provider: this.name }, "Arkesel Otp initialized");
   }
 
+  /** Send an OTP code via the Arkesel API. */
   public async sendOtp(params: SendOtpParams): Promise<SendOtpResult> {
     this.logger.info(
       { number: maskNumber(params.number), senderId: params.senderId, medium: params.medium },
@@ -56,6 +58,7 @@ export class Otp {
     }
   }
 
+  /** Verify an OTP code via the Arkesel API. */
   public async verifyOtp(params: VerifyOtpParams): Promise<VerifyOtpResult> {
     this.logger.info(
       { number: maskNumber(params.number) },

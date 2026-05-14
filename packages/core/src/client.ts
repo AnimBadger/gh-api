@@ -3,6 +3,7 @@ import { createLogger } from "./logger.js";
 import { AuthenticationError, GhApiError, RateLimitError } from "./errors.js";
 import type { ApiResponse, ClientConfig, Logger } from "./types.js";
 
+/** HTTP client that wraps fetch with auth, logging, timeouts, and error handling. */
 export class GhApiClient {
   private readonly apiKey: string;
   private readonly baseUrl: string;
@@ -25,6 +26,7 @@ export class GhApiClient {
     };
   }
 
+  /** Perform an HTTP request. Throws `GhApiError` on non-2xx responses. */
   public async request<T>(
     method: string,
     path: string,
@@ -94,5 +96,4 @@ export class GhApiClient {
 
     throw new GhApiError(apiError);
   }
-
 }
