@@ -5,16 +5,17 @@ request:
   headers:
     Content-Type: application/json
     Accept: application/json
+    api-key: "{{apiKey}}"
   body:
     type: json
     content: |-
       {
         "number": "233502027128",
-        "sender_id": "MyApp",
+        "sender_id": "gh-api",
         "expiry": 5,
         "length": 6,
         "medium": "sms",
-        "message": "string",
+        "message": "Use code: %otp_code% to verify your gh-api account. Expires in %expiry% min. Never share with anyone.",
         "type": "numeric"
       }
 response:

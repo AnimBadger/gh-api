@@ -15,6 +15,13 @@ paths:
     post:
       summary: Send an OTP code
       tags: [Arkesel OTP]
+      parameters:
+        - name: api-key
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Arkesel API key for authentication
       requestBody:
         required: true
         content:
@@ -28,7 +35,7 @@ paths:
                   example: "233502027128"
                 sender_id:
                   type: string
-                  example: "MyApp"
+                  example: "gh-api"
                 expiry:
                   type: integer
                   example: 5
@@ -65,6 +72,13 @@ paths:
     post:
       summary: Verify an OTP code
       tags: [Arkesel OTP]
+      parameters:
+        - name: api-key
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Arkesel API key for authentication
       requestBody:
         required: true
         content:

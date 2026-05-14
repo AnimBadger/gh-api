@@ -16,7 +16,10 @@ export class OtpService {
 
   public constructor(config: OtpServiceConfig) {
     this.logger = config.logger ?? createLogger();
-    const provider = new ArkeselOtp({ apiKey: config.apiKey, logger: this.logger });
+    const provider = new ArkeselOtp({
+      apiKey: config.apiKey,
+      logger: this.logger,
+    });
     this.router = new SmsRouter({ providers: [provider], logger: this.logger });
     this.logger.info({ provider: "arkesel" }, "OtpService initialized");
   }
@@ -24,14 +27,22 @@ export class OtpService {
   /** Send an OTP code to the given phone number. */
   public async send(params: SendOtpParams): Promise<SendOtpResult> {
     this.logger.info(
-      { number: params.number, senderId: params.senderId, medium: params.medium },
+      {
+        number: params.number,
+        senderId: params.senderId,
+        medium: params.medium,
+      },
       "otpService.send started",
     );
 
     try {
       const result = await this.router.sendOtp(params);
       this.logger.info(
-        { success: result.success, provider: result.provider, code: result.code },
+        {
+          success: result.success,
+          provider: result.provider,
+          code: result.code,
+        },
         "otpService.send completed",
       );
       return result;
@@ -49,7 +60,11 @@ export class OtpService {
     try {
       const result = await this.router.verifyOtp(params);
       this.logger.info(
-        { success: result.success, provider: result.provider, code: result.code },
+        {
+          success: result.success,
+          provider: result.provider,
+          code: result.code,
+        },
         "otpService.verify completed",
       );
       return result;

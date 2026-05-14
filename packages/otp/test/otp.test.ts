@@ -67,7 +67,10 @@ test.describe("OtpService", () => {
   });
 
   test("send returns failure when Arkesel returns non-1000 code", async () => {
-    const restore = mockFetch(200, { code: "1001", message: "Validation error" });
+    const restore = mockFetch(200, {
+      code: "1001",
+      message: "Validation error",
+    });
     const service = new OtpService({ apiKey: "test-key", logger });
 
     const result = await service.send({
@@ -111,9 +114,10 @@ test.describe("OtpService", () => {
     });
     restore();
 
-    const body = JSON.parse(
-      fetchCalls[0]?.options.body as string,
-    ) as Record<string, unknown>;
+    const body = JSON.parse(fetchCalls[0]?.options.body as string) as Record<
+      string,
+      unknown
+    >;
 
     expect(body.number).toBe("233544919953");
     expect(body.sender_id).toBe("Arkesel");
